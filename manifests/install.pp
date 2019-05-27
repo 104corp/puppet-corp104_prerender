@@ -2,6 +2,8 @@ class corp104_prerender::install inherits corp104_prerender {
   user { $corp104_prerender::prerender_user: ensure => present }
   group { $corp104_prerender::prerender_group: ensure => present }
 
+  package { 'unzip': ensure => present }
+
   ####################
   # Node JS Install
   ####################
