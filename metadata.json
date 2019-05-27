@@ -1,7 +1,7 @@
 {
   "name": "104corp-corp104_prerender",
   "description": "corp104_prerender Module for Debian, Ubuntu, CentOS and RHEL.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "104corp",
   "summary": "Install, deploysm, and configures prerender.",
   "license": "Apache-2.0",

@@ -52,6 +52,7 @@ class corp104_prerender::install inherits corp104_prerender {
       extract         => true,
       source          => $corp104_prerender::remote_source,
       cleanup         => true,
+      proxy_server    => $corp104_prerender::http_proxy,
       checksum_verify => false,
     }
 
