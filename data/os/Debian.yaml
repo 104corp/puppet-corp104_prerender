@@ -1,0 +1,4 @@
+corp104_prerender::bashrc: '/etc/bash.bashrc'
+corp104_prerender::package_provider: 'dpkg'
+corp104_prerender::chrome_source: 'https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb'
+corp104_prerender::chrome_source_tmp: '/tmp/prerender-chrome-stable_current_amd64.deb'

@@ -1,0 +1,47 @@
+{
+  "name": "104corp-corp104_prerender",
+  "description": "corp104_prerender Module for Debian, Ubuntu, CentOS and RHEL.",
+  "version": "0.0.1",
+  "author": "104corp",
+  "summary": "Install, deploysm, and configures prerender.",
+  "license": "Apache-2.0",
+  "source": "https://github.com/104corp/corp104_prerender",
+  "project_page": "https://github.com/104corp/corp104_prerender",
+  "issues_url": "https://github.com/104corp/corp104_prerender/issues",
+    "tags": [
+    "104",
+    "prerender",
+    "puppet"
+  ],
+  "dependencies": [
+    {
+      "name": "puppetlabs/apt",
+      "version_requirement": ">=1.8.0 <7.0.0"
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": "4.7.0 < 7.0.0"
+    }
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "6",
+        "7",
+        "8"
+      ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "14.04",
+        "16.04",
+        "18.04"
+      ]
+    }
+  ]
+}
+

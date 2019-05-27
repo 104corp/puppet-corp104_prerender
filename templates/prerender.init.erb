@@ -1,0 +1,78 @@
+#!/bin/bash
+### BEGIN INIT INFO
+# Provides:          prerender
+# Required-Start:    networking
+# Required-Stop:     networking
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Run prerender collector as daemon
+# Description:       Run prerender collector as daemon
+### END INIT INFO
+
+. /lib/lsb/init-functions
+
+NVM_DIR=<%= @nvm_dir %>
+. $NVM_DIR/nvm.sh
+
+NAME="prerender"
+PIDDIR="<%= @pid_dir %>"
+PIDFILE="$PIDDIR/prerender.pid"
+APP_BIN="${NVM_NPM_PREFIX}/bin/node"
+APP_ARGS="<%= @install_path %>/<%= @server_bin %>"
+USER="<%= @prerender_user %>"
+GROUP="<%= @prerender_group %>"
+
+start() {
+  log_daemon_msg "Starting $NAME..."
+  test -e $PIDDIR || mkdir -p $PIDDIR
+  if start-stop-daemon --background --make-pidfile --pidfile $PIDFILE -o --chuid $USER:$GROUP --start --startas --exec "$APP_BIN" -- $APP_ARGS ; then
+        log_end_msg 0
+    else
+        log_end_msg 1
+    fi
+}
+ 
+stop() {
+  log_daemon_msg "Stopping $NAME..."
+  if start-stop-daemon -o --chuid $USER:$GROUP -K --pidfile $PIDFILE ; then
+        log_end_msg 0
+    else
+        log_end_msg 1
+    fi
+}
+
+status() {
+  PID=$(cat $PIDFILE)
+  if ! ps -p $PID > /dev/null 2>&1; then
+    echo "$NAME not running."
+  else
+    echo "$NAME running."
+  fi
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+
+    stop)
+        stop
+        ;;
+
+    restart|reload|force-reload)
+        stop
+        sleep 2
+        start
+        ;;
+
+    status)
+        status
+        ;;
+
+    *)
+        echo "Usage: service $NAME {start|stop|reload|force-reload|restart|status} (you might need sudo)"
+        exit 2
+
+esac
+
+exit 0

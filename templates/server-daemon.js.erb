@@ -1,0 +1,30 @@
+#!/usr/bin/env node
+// This server.js is Managed by Puppet
+var prerender = require('./lib');
+
+var server = prerender({
+  <%- if @chrome_flags -%>
+  chromeFlags: [<%= @chrome_flags.map { |flag| "'#{flag}'"}.join(', ') %>],
+  <%- end -%>
+  pageDoneCheckInterval: <%= @page_done_check_interval -%>,
+  accessLog: {
+        // Check out the file-stream-rotator docs for parameters
+        fileStreamRotator: {
+            filename: '<%= @log_path %>/<%= @log_file_format %>',
+            frequency: '<%= @log_frequency %>',
+            date_format: '<%= @log_date_format %>',
+            verbose: '<%= @log_verbose %>'
+        },
+        // Check out the morgan docs for the available formats
+        morgan: {
+            format: 'combined'
+        }
+    }
+});
+
+server.use(prerender.sendPrerenderHeader());
+server.use(prerender.removeScriptTags());
+server.use(prerender.httpHeaders());
+server.use(require('prerender-access-log'));
+
+server.start();
